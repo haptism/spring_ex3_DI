@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
+	
+	
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<bean class="com.iu.util.DBConnecotr" id="DBConnecotr">
+		<property name="user" value="spring01" />
+		<property name="password" value="spring01" />
+		<property name="url" value="jdbc:oracle:thin:@192.168.56.101:1521:xe"/>
+		<property name="driver" value="oracle.jdbc.driver.OracleDriver" />
+	</bean>
+	
+	<bean class="com.iu.board.BoardDAO" id="boardDAO">
+		<constructor-arg name="dbConnecotr" ref="DBConnecotr"></constructor-arg>
+	</bean>
+	
+	<!-- BoardService boardService = new BoardServic() -->
+	<!-- boardService.setBoardDAO() -->
+	<bean class="com.iu.board.BoardService" id="boardService">
+		<property name="boardDAO" ref="boardDAO"></property>
+	</bean>
+	
+	
+	 
+	
+	<bean class="com.iu.phone.Iphone" p:color="red" c:price="200" >
+		<!-- <constructor-arg name="price" value="200"/>
+		<property name="color" value="red" /> -->
+	</bean>
+	
+	
+	<bean class="com.iu.car.Engine" id="engine">
+		<constructor-arg index="0">
+			<value>Gas</value>
+		</constructor-arg>
+		<constructor-arg index="1" value="50" />
+		
+		<constructor-arg index="2">
+			<value>HUNDAI</value>
+		</constructor-arg>
+		
+	</bean>
+	
+	<bean class="com.iu.car.Wheel" id="wheel">
+		<property name="brand">
+			<value>Tier</value>
+		</property>
+		<property name="size" value="15" />
+	</bean>
+	<bean class="com.iu.car.Wheel" id="wheel2">
+		<property name="brand">
+			<value>Tier</value>
+		</property>
+		<property name="size" value="15" />
+	</bean>
+	
+	<bean class="com.iu.car.MyCar">
+		<constructor-arg name="engine" ref="engine" />
+		<property name="wheels">
+			<list>
+				<ref bean="wheel"/>
+				<ref bean="wheel2"/>
+			</list> 
+			<!-- HashMap<String, String> map -->
+			<!-- <map>
+				<entry key="" value=""></entry>
+				<entry key="" value-ref=""></entry>
+			</map> -->
+			
+		</property>
+		
+	</bean>
+	
+	
+	
+		
+</beans>
